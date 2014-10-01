@@ -13,9 +13,19 @@
 
 ActiveRecord::Schema.define(version: 20141001220137) do
 
-  create_table "posts", force: true do |t|
+  create_table "post_translations", force: true do |t|
+    t.integer  "post_id",    null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "title"
     t.text     "text"
+  end
+
+  add_index "post_translations", ["locale"], name: "index_post_translations_on_locale"
+  add_index "post_translations", ["post_id"], name: "index_post_translations_on_post_id"
+
+  create_table "posts", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

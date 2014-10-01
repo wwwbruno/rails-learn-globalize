@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_locale
 
   # GET /posts
   # GET /posts.json
@@ -70,5 +71,10 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:title, :text)
+    end
+
+    def set_locale
+      session[:admin_locale] = params[:locale] if params[:locale]
+      I18n.locale = session[:admin_locale] || I18n.default_locale
     end
 end
